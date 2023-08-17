@@ -1,5 +1,5 @@
 struct SmartHouse {
-    name: String,
+    house_name: String,
     smart_kitchen: SmartRoom,
     smart_hall: SmartRoom,
     smart_living_room: SmartRoom,
@@ -17,7 +17,7 @@ impl SmartHouse {
         thermo: SmartThermometer,
     ) -> Self {
         SmartHouse {
-            name: house_name,
+            house_name,
             smart_kitchen: SmartRoom::default(kitchen_name, socket.clone(), thermo.clone()),
             smart_hall: SmartRoom::default(hall_name, socket.clone(), thermo.clone()),
             smart_living_room: SmartRoom::default(living_room_name, socket.clone(), thermo.clone()),
@@ -41,15 +41,15 @@ impl SmartHouse {
         )
     }
 
-    fn get_report(&self) -> String {
+    fn create_report(&self) -> String {
         format!(
-        "In a house named: {0}, contains premises : {1:#?}
+            "In a house named: {0}, contains premises : {1:#?}
         \nEach of the rooms has the following devices:
         {2};
         {3};
         {4};
         {5};",
-            self.name,
+            self.house_name,
             self.get_rooms(),
             self.devices(&self.smart_kitchen),
             self.devices(&self.smart_hall),
@@ -123,6 +123,6 @@ fn main() {
         thermo,
     );
 
-    let report = houses.get_report();
+    let report = houses.create_report();
     println!("{}", report);
 }
